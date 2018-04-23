@@ -248,3 +248,25 @@ function loadButton(e, sp) {
 function unloadButton(e, classes) {
     $(e).attr("disabled", false).find(classes).remove();
 }
+
+// error popover
+function showPopover(e, position, msg) {
+    $(e).attr('data-toggle', 'popover');
+    $(e).attr('data-placement', position);
+    $(e).attr('data-content', msg);
+    $(e).popover({trigger: 'manual'})
+    .on('click', function() {
+        $(e).popover('hide');
+        $(e).removeAttr('data-toggle data-placement data-content data-trigger');
+    })
+    .on('keydown', function() {
+        $(e).popover('hide');
+        $(e).removeAttr('data-toggle data-placement data-content data-trigger');
+    });
+    $(e).popover('show');
+    setTimeout(function(){
+        $(e).popover('hide');
+    }, 4000);
+    $(".popover").addClass("error-alert");
+    $(e).focus();
+}
