@@ -2,15 +2,6 @@ var HTTP_SERVER = "http://localhost/instaveritas/public/";
 var spinnerwhitexs = ' <div class="spinner white xs"></div>';
 var studios = [];   // to store studio results and their visibility status
 
-$(document).on("click", ".search-box", function() {
-    $(".search-modal").fadeIn("fast");
-    $(".search-wrap .s-input").focus();
-});
-
-$(document).on("click", ".search-modal .x-icon", function() {
-    $(".search-modal").fadeOut("fast");
-});
-
 $(document).on("click", "#login", function() {
     var username = $("#username").val().trim();
     var password = $("#password").val();
@@ -25,30 +16,30 @@ $(document).on("click", "#login", function() {
     var e = this;
     loadButton(e, spinnerwhitexs);
     $.ajax({
-		url: HTTP_SERVER+'actions',
-		type: 'POST',
-		data: {'action':"login", 'username':username, 'password':password},
-		success: function(data) {
+        url: HTTP_SERVER+'actions',
+        type: 'POST',
+        data: {'action':"login", 'username':username, 'password':password},
+        success: function(data) {
             if(data == -1) {
+                unloadButton(e, "spinner");
                 showPopover("#username", "top", "Wrong username or password");
             }
             else {
                 location.reload();
             }
-            unloadButton(e, ".spinner");
         }
-	});
+    });
 });
 
 $(document).on("click", ".logout", function() {
     $.ajax({
-		url: HTTP_SERVER+'actions',
-		type: 'POST',
-		data: {'action':"logout"},
-		success: function(data) {
+        url: HTTP_SERVER+'actions',
+        type: 'POST',
+        data: {'action':"logout"},
+        success: function(data) {
             location.reload();
         }
-	});
+    });
 });
 
 $(document).on("click", "#myModal .slot", function() {
